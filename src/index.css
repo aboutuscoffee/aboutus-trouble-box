@@ -162,10 +162,11 @@ body {
 }
 
 .segmented.compact .segmented-btn {
-  padding: 4px 3px;
+  padding: 4px 8px;
   font-size: 0.62rem;
   flex: 1;
   text-align: center;
+  white-space: nowrap;
 }
 
 .text-input {
