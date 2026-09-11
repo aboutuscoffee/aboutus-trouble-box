@@ -1,0 +1,9 @@
+{
+  "name": "お悩みBOX",
+  "short_name": "お悩みBOX",
+  "start_url": "/aboutus-trouble-box/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": []
+}
