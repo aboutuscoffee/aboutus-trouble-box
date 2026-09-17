@@ -119,7 +119,11 @@ function PostCard({ post, expanded, onToggle, onUpdate }) {
       <div className="post-card-body">
         <div onClick={onToggle} style={{ cursor: 'pointer' }}>
           <div className="post-card-top">
-            <span className="badge">{post.category}</span>
+            <span className="badge">
+              {post.category === 'その他' && post.category_detail
+                ? `その他：${post.category_detail}`
+                : post.category}
+            </span>
             <span className={`status-pill ${STATUS_CLASS[post.status]}`}>{post.status}</span>
           </div>
           <p className="post-author">{authorLabel}</p>

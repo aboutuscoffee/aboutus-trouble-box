@@ -6,6 +6,7 @@ const URGENCIES = ['今困ってる', 'そのうち'];
 
 export default function PostForm() {
   const [category, setCategory] = useState('');
+  const [categoryDetail, setCategoryDetail] = useState('');
   const [isAnonymous, setIsAnonymous] = useState(true);
   const [authorName, setAuthorName] = useState('');
   const [urgency, setUrgency] = useState('今困ってる');
@@ -16,6 +17,7 @@ export default function PostForm() {
 
   const resetForm = () => {
     setCategory('');
+    setCategoryDetail('');
     setIsAnonymous(true);
     setAuthorName('');
     setUrgency('今困ってる');
@@ -39,6 +41,7 @@ export default function PostForm() {
     setSubmitting(true);
     const { error: insertError } = await supabase.from('trouble_posts').insert({
       category,
+      category_detail: category === 'その他' && categoryDetail.trim() ? categoryDetail.trim() : null,
       is_anonymous: isAnonymous,
       author_name: isAnonymous ? null : authorName.trim() || null,
       urgency,
@@ -71,6 +74,15 @@ export default function PostForm() {
             </button>
           ))}
         </div>
+        {category === 'その他' && (
+          <input
+            type="text"
+            className="text-input"
+            placeholder="その他の内容を入力"
+            value={categoryDetail}
+            onChange={(e) => setCategoryDetail(e.target.value)}
+          />
+        )}
       </div>
 
       <div className="form-group">

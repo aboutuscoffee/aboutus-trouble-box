@@ -30,7 +30,9 @@ export default function FaqList() {
     <div>
       {faqs.map((f) => (
         <div key={f.id} className="faq-item">
-          <span className="badge">{f.category}</span>
+          <span className="badge">
+            {f.category === 'その他' && f.category_detail ? `その他：${f.category_detail}` : f.category}
+          </span>
           <p className="faq-q">{f.body}</p>
           <div className="faq-a">{f.reply}</div>
         </div>

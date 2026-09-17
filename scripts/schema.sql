@@ -1,6 +1,7 @@
 create table if not exists trouble_posts (
   id uuid primary key default gen_random_uuid(),
   category text not null check (category in ('接客', '商品', 'オペレーション', 'その他')),
+  category_detail text,
   is_anonymous boolean not null default true,
   author_name text,
   urgency text not null check (urgency in ('今困ってる', 'そのうち')),
