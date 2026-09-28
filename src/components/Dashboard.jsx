@@ -18,16 +18,23 @@ function stripeClass(post) {
 export default function Dashboard() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState('');
   const [filter, setFilter] = useState('未回答');
   const [expandedId, setExpandedId] = useState(null);
 
   const load = async () => {
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('trouble_posts')
       .select('*')
       .order('created_at', { ascending: false });
-    setPosts(data || []);
+    if (error) {
+      setErrorMsg(`データの取得に失敗しました：${error.message || '不明なエラー'}`);
+      setPosts([]);
+    } else {
+      setErrorMsg('');
+      setPosts(data || []);
+    }
     setLoading(false);
   };
 
@@ -40,6 +47,17 @@ export default function Dashboard() {
   const updatePost = (id, patch) => {
     setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, ...patch } : p)));
   };
+
+  if (errorMsg) {
+    return (
+      <div className="empty-state">
+        <p>{errorMsg}</p>
+        <button type="button" className="btn-secondary" onClick={load} style={{ marginTop: 10 }}>
+          再読み込み
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div>

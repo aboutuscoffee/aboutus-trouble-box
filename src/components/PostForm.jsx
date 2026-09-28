@@ -50,7 +50,7 @@ export default function PostForm() {
     setSubmitting(false);
 
     if (insertError) {
-      setError('送信に失敗しました。もう一度お試しください。');
+      setError(`送信に失敗しました：${insertError.message || '不明なエラー'}`);
       return;
     }
 
